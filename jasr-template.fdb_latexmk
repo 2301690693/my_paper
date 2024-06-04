@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex jasr-template"] 0 "jasr-template.aux" "jasr-template.bbl" "jasr-template" 1717421977
+["bibtex jasr-template"] 0 "jasr-template.aux" "jasr-template.bbl" "jasr-template" 1717491120
   "./jasr-model5-names.bst" 1647087340 32035 fe47a0ecb764eebdaeba2d4da1079ba6 ""
   "jasr-template.aux" 0 -1 0 "pdflatex"
   "refs.bib" 1716466591 8346 aff51a3d3179c94f9e211541a6a041e8 ""
   (generated)
   "jasr-template.bbl"
   "jasr-template.blg"
-["pdflatex"] 1717421976 "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.tex" "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.pdf" "jasr-template" 1717421977
+["pdflatex"] 1717491120 "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.tex" "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.pdf" "jasr-template" 1717491120
   "/etc/texmf/web2c/texmf.cnf" 1711955774 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.aux" 1717421976 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.tex" 1717421976 22343 70bcec7d9888f938b6ba4eef62d69d50 ""
+  "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.aux" 1717491120 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.tex" 1717491120 24090 de193fe10c0719c2c352bb6d45ed7268 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1000.tfm" 1136768653 3584 adb004a0c8e7c46ee66cad73671f37b4 ""
@@ -185,15 +185,15 @@
   "jasr-template.aux" 0 -1 0 "pdflatex"
   "jasr-template.bbl" 1716466683 1007 150e25c68e28f02de37d29d079c74d8a "bibtex jasr-template"
   "jasr-template.out" 0 -1 0 "pdflatex"
-  "jasr-template.spl" 1717421977 40 db4273f1747fbfa72eecf6e053c19657 "pdflatex"
-  "jasr-template.tex" 1717421976 22343 70bcec7d9888f938b6ba4eef62d69d50 ""
+  "jasr-template.spl" 1717491120 40 db4273f1747fbfa72eecf6e053c19657 "pdflatex"
+  "jasr-template.tex" 1717491120 24090 de193fe10c0719c2c352bb6d45ed7268 ""
   "jasr.sty" 1678798083 19581 42a858a94e3c93c245947940a6cbe8a5 ""
   "sciencedirect-logo.pdf" 1566974946 5193 8b2f3366fd863bda864deb5080d7269b ""
   (generated)
-  "jasr-template.log"
   "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.log"
-  "jasr-template.out"
-  "jasr-template.pdf"
-  "jasr-template.aux"
-  "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.pdf"
   "jasr-template.spl"
+  "jasr-template.aux"
+  "jasr-template.out"
+  "/home/tinyhang/Documents/elsarticle-jasr-template/jasr-template.pdf"
+  "jasr-template.log"
+  "jasr-template.pdf"
