@@ -310,7 +310,10 @@ Since we have introduced a time dimension, it becomes challenging to generate sa
 
 Any state that can be part of the solution path must have a finite distance d from the starting point and at least one target state. Due to velocity constraints, only states at the intersection of the start cone and the target cone (see Figure 3) satisfy this requirement. Therefore, similar to informed RRT*, we only sample from the region where solutions can be generated. Ideally, sampling would directly occur from the union of the start velocity cone and the target velocity cone.
 
-However, since it's not feasible to explicitly compute the intersection when there are multiple target states, we first uniformly sample a configuration c (Line 2 in Algorithm 5). Then, using c, we sample a feasible time within the possible time range restricted to c. The possible time range depends on $s_{start}$ and previously sampled target states. To achieve a more uniform sampling, we utilize two sets of target states: B.goals and B.newGoals. The time boundaries $t_{lb}$and $t_{ub}$ are obtained from the minimum arrival time from the starting configuration $c_start$ to c (Line 3) and the given maximum valid time.
+However, since it's not feasible to explicitly compute the intersection when there are multiple target states, we first uniformly sample a configuration c (Line 2 in Algorithm 5). Then, using c, we sample a feasible time within the possible time range restricted to c. The possible time range depends on $s_{start}$ and previously sampled target states. To achieve a more uniform sampling, we utilize two sets of target states: B.goals and B.newGoals. The time boundaries $t_{lb}$and $t_{ub}$ are obtained from the minimum arrival time from the starting configuration $c_{start}$ to c (Line 3) and the given maximum valid time.
+\begin{equation}
+	MaxValidTime(q_{rnd},G) = \max_{(q_g,t_g)\in G}\left( t_{g} - \min_i \frac{d_{\mathcal{Q}}(q_{rnd}^i,q_{g}^i)}{v^i_{max}} \right)
+\end{equation}
 
 \begin{algorithm}[H]
 	\caption[short]{SampleConditionally}
@@ -510,6 +513,7 @@ only has state constraints.
 Since we have time information for each node, there is no need to use the time allocation algorithm anymore.
 Compared to the minimum snap problem without variable conversion, this way not only avoids the problem of numerical stability of polynomial coefficient, but also the solution speed has been greatly improved.
 
+
 % \begin{verbatim}
 % \begin{figure}
 %   \centering
@@ -560,6 +564,9 @@ Compared to the minimum snap problem without variable conversion, this way not o
 % in running text "/" should be used
 % for division (not a horizontal line).
 
+\section{Simulation Results}
+
+
 
 
 \section{Citations}
@@ -596,6 +603,8 @@ commands:
 
 \section{A sample entry in the bibliography file}
 %{\fontsize{7.5pt}{9.6pt}\selectfont
+
+
 \begin{verbatim}
   ==================
 
@@ -611,7 +620,7 @@ commands:
   }
 
   ==================
-  \end{verbatim}
+\end{verbatim}
 %}
 
 \section*{Acknowledgments}
