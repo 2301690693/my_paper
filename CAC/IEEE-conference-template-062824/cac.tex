@@ -5,6 +5,7 @@
 
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{caption,booktabs,amsthm,amsmath,threeparttable,subfigure,float}
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
@@ -15,7 +16,7 @@
 
     \title
     {
-        Asymptotically time-optimal smooth trajectory generation in dynamic environments\\
+        Asymptotically time-optimal smooth trajectory planning in dynamic environments\\
     }
 
     \author
@@ -36,27 +37,21 @@
     \maketitle
 
     \begin{abstract}
-        In this paper, we proposes an algorithm for smooth trajectory generation in environments with dynamic obstacles and speed constraints. The proposed algorithm Tube Space-Time RRT* (Tube ST-RRT*) is a probabilistically complete asymptotically optimal safe trajectory planning algorithm. To address the problem of non-smooth paths in ST-RRT*, a dynamic Tube is generated for each node and combined with a dynamic coorid minimum snap to generate smooth collision-free trajectories. Through simulations in cluttered 2D and 3D environments, the results of our algorithm are superior to ST-RRT* in terms of smoothness and safety.
+        In this paper we proposed an algorithm for smooth trajectory generation in complex environments with dynamic obstacles and velocity constraints. The proposed algorithm Tube Space-Time RRT* (Tube ST-RRT*) is combined with the improved reformulation dynamic coordinate minimum snap (RDCMS) to generate smooth collision-free trajectories with asymptotic time Optimal.First, sample the space-time state space to obtain the time information for each node to complete the avoidance of moving obstacles.Then, to address the issue of non-smooth paths in ST-RRT*, generate a dynamic Tube for each node and combine it with the improved minisnap to create a smooth, collision-free trajectory Finally,Simulations in complex environments demonstrate the effectiveness of our proposed algorithm.
     \end{abstract}
 
     \begin{IEEEkeywords}
-        component, formatting, style, styling, insert.
+        Tube Space-Time RRT*; asymptotic time Optimal; smooth collision-free trajectories
     \end{IEEEkeywords}
 
     \section{Introduction}
-    This document is a model and instructions for \LaTeX.
-    Please observe the conference page limits. For more information about how to become an IEEE Conference author or how to write your paper, please visit   IEEE Conference Author Center website: https://conferences.ieeeauthorcenter.ieee.org/.
+        Trajectory planning is a fundamental challenge in robotics\cite{b1}, as obstacles in the real world often change over time. Applications such as robotics and autonomous driving typically require a smooth, collision-free trajectory. Assuming the obstacle trajectories are known a priori, the problem can be modeled as navigation in a dynamic environment. Mathematically, this is expressed as planning through a space-time state space \cite{b2}.
 
-    \subsection{Maintaining the Integrity of the Specifications}
+        Planning in dynamic environments has been studied for a long time and has yielded significant research results. These results can be broadly categorized into two approaches. For example, RRTX\cite{b3} and Real-time RRT* \cite{b4} require fast replanning when previously computed paths become invalid during execution. However, as the dimensionality increases, the replanning time becomes longer, making it difficult to respond to moving obstacles. RiskRRT \cite{b5} combines predictions of obstacle movements and computes partial motion paths to keep the collision probability below a given threshold. However, since only partial paths are returned, frequent replanning is still necessary.Another approach assumes that the trajectories of moving obstacles are unknown, while another assumes that the trajectories of the obstacles are completely known. For example, Time-Based RRT \cite{b6} extends the configuration state space through the time dimension and unidirectionally plans to a set of known target states. However, it requires the assumption of knowing the specific time for each target configuration. Additionally, due to the random sampling nature of RRT, the resulting trajectories are usually not smooth.
 
-    The IEEEtran class file is used to format your paper and style the text. All margins, 
-    column widths, line spaces, and text fonts are prescribed; please do not 
-    alter them. You may note peculiarities. For example, the head margin
-    measures proportionately more than is customary. This measurement 
-    and others are deliberate, using specifications that anticipate your paper 
-    as one part of the entire proceedings, and not as an independent document. 
-    Please do not revise any of the current designations.
+        In this paper, we proposes a Tube-based space-time sampling planning algorithm, Tube-ST-RRT*, and an improved reformulation dynamic coordinate minimum snap (RDCMS) method. Through a two-step method of  planning and optimizing, it achieves asymptotic time-optimal collision-free trajectory planning in dynamic environments, while ensuring high trajectory smoothness to facilitate easier tracking control. The Tube-ST-RRT* algorithm adds a time dimension to the configuration space so that each node contains time information, allowing it to respond to time-varying obstacles. Additionally, the improved RDCMS method combines with each node's tube information and time information to generate smooth, collision-free trajectories. Finally, comparative simulations verify the effectiveness of the algorithm
 
+        The rest of this paper is organized as follows: At Section II, explains the problem of time-optimal planning in dynamic environments. In Section III,presents the main results of this paper, including the principles and steps of the Tube ST-RRT* planning algorithm and the RDCMS trajectory optimization algorithm. Section IV provides simulation results and comparative experiments to demonstrate the feasibility and superiority of the proposed method. Finally, Section V summarizes the paper.
     \section{Prepare Your Paper Before Styling}
     Before you begin to format your paper, first write and save the content as a 
     separate text file. Complete all content and organizational editing before 
@@ -248,21 +243,19 @@
     citation first, followed by the original foreign-language citation \cite{b6}.
 
     \begin{thebibliography}{00}
-    \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-    \bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-    \bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-    \bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-    \bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-    \bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-    \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
-    \bibitem{b8} D. P. Kingma and M. Welling, ``Auto-encoding variational Bayes,'' 2013, arXiv:1312.6114. [Online]. Available: https://arxiv.org/abs/1312.6114
-    \bibitem{b9} S. Liu, ``Wi-Fi Energy Detection Testbed (12MTC),'' 2023, gitHub repository. [Online]. Available: https://github.com/liustone99/Wi-Fi-Energy-Detection-Testbed-12MTC
-    \bibitem{b10} ``Treatment episode data set: discharges (TEDS-D): concatenated, 2006 to 2009.'' U.S. Department of Health and Human Services, Substance Abuse and Mental Health Services Administration, Office of Applied Studies, August, 2013, DOI:10.3886/ICPSR30122.v2
-    \bibitem{b11} K. Eves and J. Valasek, ``Adaptive control for singularly perturbed systems examples,'' Code Ocean, Aug. 2023. [Online]. Available: https://codeocean.com/capsule/4989235/tree
+        \bibitem{b1} B. Siciliano and O. Khatib, Springer handbook of robotics. Springer, 2016.
+        \bibitem{b2} F. Grothe, V. N. Hartmann, A. Orthey and M. Toussaint, ``ST-RRT*: Asymptotically-Optimal Bidirectional Motion Planning through Space-Time,'' 2022 International Conference on Robotics and Automation (ICRA), Philadelphia, PA, USA, 2022, pp. 3314-3320
+        \bibitem{b3} M. Otte and E. Frazzoli, ``Rrtx: Asymptotically optimal single-query sampling-based motion planning with quick replanning,'' International Journal of Robotics Research, vol. 35, no. 7, pp. 797–822, 2016.
+        \bibitem{b4} K. Naderi, J. Rajamäki, and P. Hämäläinen, ``Rt-rrt* a real-time path planning algorithm based on rrt,'' in ACM SIGGRAPH Conference on Motion in Games, 2015, pp. 113–118.
+        \bibitem{b5} C. Fulgenzi, A. Spalanzani, C. Laugier, and C. Tay, ``Risk based motion planning and navigation in uncertain dynamic environment,'' Research Report, Oct. 2010.
+        \bibitem{b6} A. Sintov and A. Shapiro, ``Time-based rrt algorithm for rendezvous planning of two dynamic systems,'' in Proc. of the IEEE Int. Conf. on Robotics and Automation (ICRA), 2014, pp. 6745–6750.
+        \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+        \bibitem{b8} D. P. Kingma and M. Welling, ``Auto-encoding variational Bayes,'' 2013, arXiv:1312.6114. [Online]. Available: https://arxiv.org/abs/1312.6114
+        \bibitem{b9} S. Liu, ``Wi-Fi Energy Detection Testbed (12MTC),'' 2023, gitHub repository. [Online]. Available: https://github.com/liustone99/Wi-Fi-Energy-Detection-Testbed-12MTC
+        \bibitem{b10} ``Treatment episode data set: discharges (TEDS-D): concatenated, 2006 to 2009.'' U.S. Department of Health and Human Services, Substance Abuse and Mental Health Services Administration, Office of Applied Studies, August, 2013, DOI:10.3886/ICPSR30122.v2
+        \bibitem{b11} K. Eves and J. Valasek, ``Adaptive control for singularly perturbed systems examples,'' Code Ocean, Aug. 2023. [Online]. Available: https://codeocean.com/capsule/4989235/tree
     \end{thebibliography}
 
-    \vspace{12pt}
-    \color{red}
-    IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
+
 
 \end{document}
