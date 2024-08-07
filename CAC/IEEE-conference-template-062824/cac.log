@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  7 AUG 2024 10:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.6)  7 AUG 2024 16:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -267,17 +267,6 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box56
 \@float@everytoks=\toks30
 \@floatcapt=\box57
-) (d:/software/texlive/texmf-dist/tex/latex/algorithms/algorithmic.sty
-Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
- (d:/software/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
-)
-\c@ALC@unique=\count289
-\c@ALC@line=\count290
-\c@ALC@rem=\count291
-\c@ALC@depth=\count292
-\ALC@tlm=\skip63
-\algorithmicindent=\skip64
 ) (d:/software/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
  (d:/software/texlive/texmf-dist/tex/latex/graphics/graphics.sty
@@ -311,27 +300,42 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+) (d:/software/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
+ (d:/software/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks31
+\c@algorithm=\count289
+) (d:/software/texlive/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count290
+\c@ALC@line=\count291
+\c@ALC@rem=\count292
+\c@ALC@depth=\count293
+\ALC@tlm=\skip63
+\algorithmicindent=\skip64
 ) (d:/software/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count293
+\l__color_backend_stack_int=\count294
 \l__pdf_internal_box=\box58
 ) (./cac.aux)
 \openout1 = `cac.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
 
 -- Lines per column: 56 (exact).
 Package caption Info: Begin \AtBeginDocument code.
@@ -341,50 +345,34 @@ Package caption Info: threeparttable package is loaded.
 Package caption Info: End \AtBeginDocument code.
 (d:/software/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count294
+\scratchcounter=\count295
 \scratchdimen=\dimen198
 \scratchbox=\box59
-\nofMPsegments=\count295
-\nofMParguments=\count296
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count297
+\nofMPsegments=\count296
+\nofMParguments=\count297
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count298
 \MPscratchDim=\dimen199
-\MPnumerator=\count298
-\makeMPintoPDFobject=\count299
-\everyMPtoPDFconversion=\toks32
+\MPnumerator=\count299
+\makeMPintoPDFobject=\count300
+\everyMPtoPDFconversion=\toks33
 ) (d:/software/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (d:/software/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 62.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 61.
  (d:/software/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 62.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 61.
  (d:/software/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{d:/software/texlive/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{d:/software/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
-]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 97.
- (d:/software/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [2]
-<fig1.png, id=18, 249.3315pt x 189.22694pt>
-File: fig1.png Graphic file (type png)
-<use fig1.png>
-Package pdftex.def Info: fig1.png  used on input line 202.
-(pdftex.def)             Requested size: 249.33087pt x 189.22647pt.
-LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 213.
- (d:/software/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
-File: omsptm.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 213.
- [3 <./fig1.png (PNG copy)>]
+] [2]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -396,22 +384,22 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[4
+[3
 
 ] (./cac.aux) ) 
 Here is how much of TeX's memory you used:
- 6080 strings out of 476025
- 100335 string characters out of 5792019
- 1869382 words of memory out of 5000000
- 26460 multiletter control sequences out of 15000+600000
- 552492 words of font info for 107 fonts, out of 8000000 for 9000
+ 6092 strings out of 476025
+ 100675 string characters out of 5792019
+ 1875382 words of memory out of 5000000
+ 26481 multiletter control sequences out of 15000+600000
+ 547217 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,63p,1312b,330s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><d:/software/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb><d:/software/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><d:/software/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><d:/software/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><d:/software/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on cac.pdf (4 pages, 148962 bytes).
+ 57i,8n,63p,1313b,654s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><d:/software/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><d:/software/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><d:/software/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><d:/software/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><d:/software/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on cac.pdf (3 pages, 155965 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 80 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
