@@ -5,6 +5,8 @@
 
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+
+\usepackage{latexsym}
 \usepackage{caption,booktabs,amsthm,amsmath,threeparttable,subfigure,float}
 % \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -58,20 +60,32 @@
         The rest of this paper is organized as follows: At Section \ref{sec2}, explains the problem of time-optimal planning in dynamic environments. In Section III,presents the main results of this paper, including the principles and steps of the Tube ST-RRT* planning algorithm and the RDCMS trajectory optimization algorithm. Section IV provides simulation results and comparative experiments to demonstrate the feasibility and superiority of the proposed method. Finally, Section V summarizes the paper.
     \section{Problem Statement}
     \label{sec2}
-    Consider the time-space planning problem with a tube, where the space-time state space is defined as \(\mathcal{Q} = \mathcal{X} \times \mathcal{T} \times \mathcal{B}\), where \(\mathcal{X} \subset \mathbb{R}^n\) is the configuration state space, \(\mathcal{T}\) is the time state space, \(\mathcal{B}\) is the size of the tube, and \(n\) is the dimension of the configuration space state. Let \(\mathcal{Q}_{free} \subset \mathcal{Q}\) be the collision-free subset of states, \(Q_{start}\) be the initial state, and \(\mathcal{X}_{goal}\) be the goal region. In the following work, it is assumed that the trajectories of obstacles are completely known. Therefore, the planning problem can be described as finding a path solution that starts from the initial state \(q_{start}(t_{start})\), reaches the goal region or target state \(x_{goal} \in \mathcal{X}_{goal}\), with the tube size as large as possible and the time taken as short as possible while avoiding time-varying obstacles.
+    Consider the time-space planning problem with a tube, where the space-time state space is defined as \(\mathcal{Q} = \mathcal{X} \times \mathcal{T} \times \mathcal{B}\), where \(\mathcal{X} \subset \mathbb{R}^n\) is the configuration state space, \(\mathcal{T}\) is the time state space, \(\mathcal{B}\) is the size of the tube, and \(n\) is the dimension of the configuration space state. Let \(\mathcal{Q}_{free} \subset \mathcal{Q}\) be the collision-free subset of states, \(Q_{start}\) be the initial state, and \(\mathcal{X}_{goal}\) be the goal region. In the following work, it is assumed that the trajectories of obstacles are completely known. Therefore, the planning problem can be described as finding a path solution that starts from the initial state \(q_{start}\), reaches the goal region or target state \(x_{goal} \in \mathcal{X}_{goal}\). The goal is to find a state-space sequence with the tube size as large as possible and the time taken as short as possible while avoiding time-varying obstacles.
+
+    % \begin{equation}
+    % \begin{aligned}
+    %     \label{problem}
+    %     &\min \quad \int_{t_{start}}^{t_{goal}}1dt \\
+    %     &s.t. \quad x(t_{init}) = x_{init} \\
+    %     &\dot{\boldsymbol{x}}(t) = \boldsymbol{A}\boldsymbol{x}+\boldsymbol{B}\boldsymbol{u}\\
+    %     & \boldsymbol{x}(t) \in \mathcal{X}_{free},t \in [t_{init},t_{final}]
+    % \end{aligned}
+    % \end{equation}
+
     \section{Main Results}
     \label{sec3}
-    \subsection{Path Node Generation Based on Tube-ST-RRT*}
-    The TubeST-RRT* algorithm is an improved version of RRT* Connect, modifying the sampling function, steer function, find nearest function and rewiring function, and setting the motion check function for the spacecraft's motion dynamics.Considering the time-varying information of obstacles and the flight corridor with added nodes, we ensure that the generated trajectory is safe and collision-free during subsequent trajectory optimization. 
-
-    RRT* Connect algorithm is an asymptotically optimal bidirectional sampling method widely used in robot path planning with obstacle avoidance constraints. The core idea of the RRT method is to randomly sample in the state space to obtain a series of path nodes and directed edges from the parent node to the child node, forming a search tree $\mathcal{T}_{tree }$. To address planning problems in environments with time-varying obstacles, the Tube-ST-RRT* algorithm is proposed. This algorithm first adds a time dimension to the state space and samples the node times to obtain nodes that meet the time-varying constraints. Secondly, during the node sampling process, a radius variable is sampled to ensure that the node is collision-free within a spherical region of that radius. The final result is a sequence of nodes $\boldsymbol{s} = [\boldsymbol{s_{0}},\boldsymbol{s}_{1}\dots{},\boldsymbol{s}_{n}]$, each containing information on position, velocity, time, and the radius of the maximum collision-free spherical region.
-    
-    The algorithmic details of Tube-ST-RRT* are provided in Algorithms \ref{algorrt}. In addition to $\mathcal{S}, q_{start}, \mathcal{X}{goal}, d$, the planning termination condition $ptc$, the probability of sampling a new goal $p_{goal} \in \left (0, 1 \right ]$, and the time limit $t_{\max} \in \left (0, \infty \right]$ are also required. The basic framework is similar to RRT-Connect.
+    \subsection{Path Node Generation Based on TubeST-RRT*}
+    % TubeST-RRT* 算法是 RRT* Connect 算法的增强版本，对采样函数、引导函数、最近邻函数和重连函数进行了修改。由于节点具有时间信息，可以引入运动检查函数进行速度约束的检测，此外，在状态空间中添加了额外的tube维度以保证采样节点与障碍物的最小距离。通过考虑障碍物的时间变化特性和添加节点的tube，该算法确保生成的轨迹在后续的轨迹优化过程中保持安全且无碰撞。
+    The TubeST-RRT* algorithm is an enhanced version of the RRT* Connect algorithm, with modifications to the sampling function, steering function, nearest neighbor function, and rewiring function. Since the nodes contain time information, a motion check function can be introduced to detect velocity constraints. Additionally, an extra tube dimension is added to the state space to ensure a minimum distance between sampling nodes and obstacles. By considering the time-varying characteristics of obstacles and incorporating the tube into the nodes, the algorithm ensures that the generated trajectory remains safe and collision-free throughout subsequent trajectory optimization.
+    % RRT* Connect 算法是一种渐进最优的双向采样方法，广泛应用于具有避障约束的机器人路径规划中。RRT 方法的核心思想是在状态空间中随机采样，以获取从父节点到子节点的一系列路径节点和有向边，形成搜索树 $\mathcal{T}_{tree }$。为了在具有时变障碍物的环境中解决规划问题，提出了 Tube-ST-RRT* 算法。该算法首先在状态空间中添加一个时间维度，并对节点时间进行采样，以获得满足时变约束的节点。其次，在节点采样过程中，采样tube变量以确保节点在该半径的球形区域内无碰撞。最终结果是节点序列 $\boldsymbol{s} = [\boldsymbol{s_{0}},\boldsymbol{s}_{1}\dots{},\boldsymbol{s}_{n}]$，其中每个节点都包含位置信息、速度、时间以及最大无碰撞球形区域的半径信息。
+    RRT* Connect algorithm is an asymptotically optimal bidirectional sampling method widely used in robot path planning with obstacle avoidance constraints. The core idea of the RRT method is to randomly sample in the state space to obtain a series of path nodes and directed edges from the parent node to the child node, forming a search tree $\mathcal{T}_{tree }$. To address planning problems in environments with time-varying obstacles, the Tube-ST-RRT* algorithm is proposed. This algorithm first adds a time dimension to the state space and samples the node times to obtain nodes that meet the time-varying constraints. Secondly, during the node sampling process, a tube variable is sampled to ensure that the node is collision-free within a spherical region of that radius. The final result is a sequence of nodes $\boldsymbol{s} = [\boldsymbol{s_{0}},\boldsymbol{s}_{1}\dots{},\boldsymbol{s}_{n}]$, each containing information on position, velocity, time, and the radius of the maximum collision-free spherical region.
+    % “Tube-ST-RRT* 算法的详细步骤见算法 \ref{algorrt}。算法输入除了 $\mathcal{S}$、$q_{start}$、$\mathcal{X}_{goal}$ 和 $d$ 外，还需要规划终止条件 $ptc$、采样新目标的概率 $p_{goal} \in \left (0, 1 \right ]$ 以及时间限制 $t_{\max} \in \left (0, \infty \right]$。基本框架与 RRT-Connect 类似。”
+    The algorithmic details of Tube-ST-RRT* are provided in Algorithms \ref{algorrt}. The algorithm inputs, in addition to $\mathcal{Q}, q_{start}, \mathcal{X}{goal}, d$, the planning termination condition $ptc$, the probability of sampling a new goal $p_{goal} \in \left (0, 1 \right ]$, and the time limit $t_{\max} \in \left (0, \infty \right]$ are also required. The basic framework is similar to RRT-Connect.
 
     Algorithm \ref{algorrt} outlines the overall framework of TubeST-RRT*. The general procedure of the algorithm is as follows:
-
-    Firstly, it seeks the minimum collision-free $r_{init}$ for the starting point and then initializes parameters.
-    In each iteration, firstly update the boundary parameters. Then, with a probability $p_{goal}$, decide whether to sample a new target or sample the endpoint. Sample a random state $q_{rand}$, find $q_{near}$, and expand $q_{new}$ between $q_{near}$ and $q_{rand}$. In $q_{new}$, find the maximum collision-free spherical region. If the path from $q_{near}$ to $q_{new}$ is collision-free and satisfies spacecraft motion dynamic constraints, add the new state $x_{new}$ to the current tree $T_{a}$ and attempt to connect from $x_{new}$ to the other tree $T_{b}$. If the connection is successful, update the solution. Finally, swap $T_{a}$ and $T_{b}$ and start the next iteration. Repeat until the termination condition $ptc$ is met.
+    
+    % “首先，算法寻找起点的最小无碰撞半径 $r_{init}$，然后初始化参数。在每次迭代中，首先更新边界参数。接着，以概率 $p_{goal}$ 决定是否采样一个新目标或采样终点以得到采样点$q_{rand}$。然后找到离采样点的最近点 $q_{near}$，并在 $q_{near}$ 和 $q_{rand}$ 之间扩展得到 $q_{new}$。在 $q_{new}$ 中，找到最大无碰撞球形的半径R。如果从 $q_{near}$ 到 $q_{new}$ 的路径无碰撞且满足速度约束，则将新状态 $q_{new}$ 添加到当前树 $T_{a}$ 中，并尝试从 $q_{new}$ 连接到另一棵树 $T_{b}$。如果连接成功，则更新解决方案。最后，交换 $T_{a}$ 和 $T_{b}$，并开始下一次迭代。重复直到满足终止条件 $ptc$。”
+    First, the algorithm finds the minimum collision-free radius \( r_{init} \) for the starting point and initializes the parameters. In each iteration, boundary parameters are updated. Then, with a probability \( p_{goal} \), it decides whether to sample a new goal or sample the endpoint to obtain the sampling point \( q_{rand} \). Next, it finds the nearest point \( q_{near} \) to the sampling point and extends between \( q_{near} \) and \( q_{rand} \) to obtain \( q_{new} \). At \( q_{new} \), the maximum collision-free spherical radius \( R \) is determined. If the path from \( q_{near} \) to \( q_{new} \) is collision-free and satisfies the velocity constraints, the new state \( q_{new} \) is added to the current tree \( T_{a} \), and an attempt is made to connect \( q_{new} \) to the other tree \( T_{b} \). If the connection is successful, the solution is updated. Finally, \( T_{a} \) and \( T_{b} \) are swapped, and the next iteration begins. This process is repeated until the termination condition \( ptc \) is met.
 
     The main improvements of our proposed TubeST-RRT* algorithm over RRT*-Connect are as follows:
     \begin{itemize}
@@ -91,37 +105,197 @@
 		\STATE{$s_{start} \gets \{q_{start},r_{start}\}$}
 		\STATE{$T_{a} \gets \{s_{start}\};T_{b} \gets \emptyset$}
 		\STATE{$B \gets InitailieBoundVariables(Param)$}
-
-		\WHILE{ ptc}
-		\STATE{$B \gets UpdateGoalRegion(B,Param,t_{\max})$}
-		\IF{$ p_{goal} > rand(0,1)$}
-		\STATE{$B \gets SampleGoal(s_{start},x_{goal},T_{gaol},B)$}
-
-		\ENDIF{}
-		\STATE{$q_{rand} \gets SampleConditionally(s_{start},\mathcal{X},B, d)$}
-		\STATE{$r_{rand} \gets FindMaxRadius (q_{rand})$}
-		\STATE{$s_{rand} \gets \{q_{rand},r_{rand}\}$}
-		\STATE{$s_{nearsst} \gets Nearset(s_{rand},T_{a})$}
-		\STATE{$s_{new} \gets TubeSTSteer(s_{nearest},s_{rand},d)$}
-		\IF{$MotionCheck(s_{nearsst},s_{new})$}
-		\STATE{$B.samplesInBatch +=1$}
-		\STATE{$B.totalSamples +=1$}
-		\STATE{${Rewire}Tree(T_{a},x_{new})$}
-		\IF{$Connect(T_{b}, x_{new}, d) = Reached$}
-		\STATE{$solution \gets UpdateSolution(x_{new})$}
-		\STATE{$t_{\max} \gets CostPath(solution)$}
-		\STATE{$B.batchProbability \gets 1$}
-		\STATE{$PruneTrees(t_{\max}, T_a, T_b)$}
-		\ENDIF{}
-		\ENDIF{}
-		\STATE{$Swap(T_a,T_b)$}
+		\WHILE{ptc}
+            \STATE{$B \gets UpdateGoalRegion(B,Param,t_{\max})$}
+            \IF{$ p_{goal} > rand(0,1)$}
+                \STATE{$B \gets SampleGoal(s_{start},x_{goal},T_{gaol},B)$}
+            \ENDIF{}
+            \STATE{$q_{rand} \gets SampleConditionally(s_{start},\mathcal{X},B, d)$}
+            \STATE{$r_{rand} \gets FindMaxRadius (q_{rand})$}
+            \STATE{$s_{rand} \gets \{q_{rand},r_{rand}\}$}
+            \STATE{$s_{nearsst} \gets Nearset(s_{rand},T_{a})$}
+            \STATE{$s_{new} \gets TubeSTSteer(s_{nearest},s_{rand},d)$}
+            \IF{$MotionCheck(s_{nearsst},s_{new})$}
+                \STATE{$B.samplesInBatch +=1$}
+                \STATE{$B.totalSamples +=1$}
+                \STATE{${Rewire}Tree(T_{a},x_{new})$}
+                \IF{$Connect(T_{b}, x_{new}, d) = Reached$}
+                    \STATE{$solution \gets UpdateSolution(x_{new})$}
+                    \STATE{$t_{\max} \gets CostPath(solution)$}
+                    \STATE{$B.batchProbability \gets 1$}
+                    \STATE{$PruneTrees(t_{\max}, T_a, T_b)$}
+                \ENDIF{}
+            \ENDIF{}
+            \STATE{$Swap(T_a,T_b)$}
 		\ENDWHILE{}
 		\RETURN{$Solution$}
         \end{algorithmic}
     \end{algorithm}
 
     \subsection{Reformulation Dynamic Coordinate Minimum Snap Trajectory Optimization}
+    For the state sequence generated by TubeST-RRT*, trajectory optimization can be applied to make the trajectory smoother. In minimum snap trajectory optimization, the optimized trajectory needs to pass through intermediate path nodes. However, since our TubeST-RRT* incorporates collision detection within the spherical regions, it essentially provides a collision-free flight corridor. Therefore, the trajectory only needs to stay within this corridor to ensure collision-free movement. Traditional minimum snap optimization using polynomial parameters as optimization variables may lead to numerical instability when there are too many nodes. Here, we can use reformulation minimum snap to transform the optimization variables from polynomial coefficients to physically meaningful variables such as position ($p$), velocity ($v$), and acceleration ($a$). Constraints can be added to $p$ to ensure it stays within the circles generated by the planner. This ensures that the optimized trajectory is collision-free.
 
+    Input as
+    \begin{equation}
+        s = [s_{0},s_{1},s_{2},\cdot{}\cdot{}\cdot{},s_{N}]
+    \end{equation}
+    where,$s_{i} = [x_{i},y_{i},z_{i},v_{yi},v_{zi},t_{i},r_{i}]$
+    A quintic polynomial is used to fit a uniaxial trajectory.
+    \begin{equation}
+        \boldsymbol{p}\left( {t}\right)= {p}_{0} {t}^{0}+ {p}_{1} {t}^{1}+\cdots+ {p}_{5} {t}^{5}
+    \end{equation}
+
+    For the $N+1$ points generated by the planner (including the start point and the end point), it can be assumed that there are $N$ segments of the trajectory, where each segment of the trajectory is a higher-order polynomial, for minimum snap, our cost function is
+
+    \begin{equation}
+        J= J_{1}+J_{2}+\cdots+J_{N} = \sum_{n=0}^M p_{m}^\top Q_{m}p_{m}
+    \end{equation}
+    where,$J_{m} = \int^{T_{m}}_{{T_{m-1}}}\left( \frac{d^4p(t)}{dt^4} \right)^2$
+    However, as the polynomial coefficients do not have practical physical meanings, when N is large, or in some special cases, this optimization problem can easily become numerically unstable, leading to difficulties in solving. To address this issue, a reformulation method was proposed to map the optimization variables to the physically meaningful variables $(p,v,a)$.
+    \begin{equation}
+        \begin{aligned}
+            \boldsymbol{A}_i\boldsymbol{p}_i=\boldsymbol{d}_i,\quad \boldsymbol{A}_i=\begin{bmatrix}\boldsymbol{A}_0\\\boldsymbol{A}_T\end{bmatrix}_i,\boldsymbol{d}_i=\begin{bmatrix}\boldsymbol{d}_0\\\boldsymbol{d}_T\end{bmatrix}_i
+        \end{aligned}
+    \end{equation}
+    The mapping relationship between the polynomial coefficients and the motion differential has been obtained.
+    \begin{equation}
+        \begin{aligned}
+            & \boldsymbol{d}_{i}
+            = 
+            \boldsymbol{A}_{i} 
+            \boldsymbol{p}_{i} \\
+            & \boldsymbol{p}_{i} = \boldsymbol{A}_{i}^{-1}\boldsymbol{d}_{i}
+        \end{aligned}
+    \end{equation}
+
+    where, $d_{i}$ is a vector including the derivative values of the start $d_0$ and the end $d_T$ of the i-th segment. If the specific derivative is not known, a continuity constraint needs to be imposed to ensure that the derivative at the end of the i-th segment matches the derivative at the beginning of the (i + 1)-th segment: 
+
+    Replace the coefficient vector of the original cost function through the mapping matrix $\boldsymbol{A}_{m}$ to obtain the following equation
+
+    \begin{equation}
+        \begin{aligned}
+            J 
+            &= 
+            \begin{bmatrix}\boldsymbol p_0\\\boldsymbol p_1\\\vdots\\\boldsymbol p_ N\end{bmatrix}^\top
+            \begin{bmatrix}\boldsymbol Q_0&0&\cdots&\cdots&0\\0&\boldsymbol Q_1&0&\cdots&0\\\vdots&\vdots&\vdots&\ddots&\vdots\\0&0&0&\cdots&\boldsymbol Q_\mathrm N\end{bmatrix}
+            \begin{bmatrix}\boldsymbol p_0\\\boldsymbol p_1\\\vdots\\\boldsymbol p_ N\end{bmatrix}
+            \\
+            &= 
+            \begin{bmatrix}
+            \boldsymbol{d}_{0} \\
+            \boldsymbol{d}_{1} \\
+            \vdots  \\
+            \boldsymbol{d}_{N} 
+            \end{bmatrix}^{\top}
+            \begin{bmatrix}
+            \boldsymbol{A} & 0 &\cdots &0 \\
+            0 & \boldsymbol{A_{1}}  &\cdots &0 \\ 
+            \vdots &\vdots &\ddots &\vdots    \\
+            0 & 0 &\cdots  &\boldsymbol{A_{N}} \\
+            \end{bmatrix}^{-\top}
+            \begin{bmatrix}\boldsymbol Q_0&0&\cdots&\cdots&0\\0&\boldsymbol Q_1&0&\cdots&0\\\vdots&\vdots&\vdots&\ddots&\vdots\\0&0&0&\cdots&\boldsymbol Q_\mathrm N\end{bmatrix}
+            \begin{bmatrix}
+            \boldsymbol{A} & 0 &\cdots &0 \\
+            0 & \boldsymbol{A_{1}}  &\cdots &0 \\ 
+            \vdots &\vdots &\ddots &\vdots    \\
+            0 & 0 &\cdots  &\boldsymbol{A_{N}} \\
+            \end{bmatrix} ^{-1}
+            \begin{bmatrix}
+            \boldsymbol{d}_{0} \\
+            \boldsymbol{d}_{1} \\
+            \vdots  \\
+            \boldsymbol{d}_{N} 
+            \end{bmatrix}
+            \\
+            &= 
+            \boldsymbol{d}^{\top} \boldsymbol{A}^{-\top}\boldsymbol{Q}\boldsymbol{A^{-1}}\boldsymbol{d}
+        \end{aligned}
+    \end{equation}
+
+    Introduce dynamic coorid constraints and continuity constraints for the information of the non-collision circle radius in the nodes calculated by the planner.
+
+    For the processing of the continuity constraint, the permutation matrix (permutation matrix) $C$ can be used to introduce the continuity constraint into the cost function.
+    
+    \begin{equation}
+        \begin{aligned}
+            J &= 
+            \begin{bmatrix}
+            \boldsymbol{d}_{F} \\
+            \boldsymbol{d}_{P{}}
+            \end{bmatrix} ^{\top}
+            \boldsymbol{C}\boldsymbol{A}^{-\top}
+            \boldsymbol{Q} \boldsymbol{A}^{-1}
+            \boldsymbol{C}^{\top}
+            \begin{bmatrix}
+            \boldsymbol{d}_{F} \\
+            \boldsymbol{d}_{P}
+            \end{bmatrix} \\
+            &=
+            \begin{bmatrix}
+            \boldsymbol{d}_{F} \\
+            \boldsymbol{d}_{P}
+            \end{bmatrix}
+            \begin{bmatrix}
+            \boldsymbol{R}_{FF} &\boldsymbol{R}_{FP}\\
+            \boldsymbol{R}_{PF} &\boldsymbol{R}_{PP}\\
+            \end{bmatrix}
+            \begin{bmatrix}
+            \boldsymbol{d}_{F} \\
+            \boldsymbol{d}_{P}
+            \end{bmatrix}
+        \end{aligned}
+    \end{equation}
+    where, $\boldsymbol{d}_{F}$ is a fixed variable, which is directly determined by the $p$, $v$, and $a$ of the initial point and the end point here. $\boldsymbol{d}_{P}$ is a variable that needs to be optimized and solved, so the optimization problem can be rewritten as.
+
+    \begin{equation}
+        J = 2\boldsymbol{d}_{F}^{\top}\boldsymbol{R}_{FP}\boldsymbol{d}_{P} + \boldsymbol{d}_{P}^{\top}\boldsymbol{R}_{PP}\boldsymbol{d}_{P} 
+    \end{equation}
+
+    After changing the optimization variable from the polynomial coefficient to the $p$, $v$, $a$ variables with practical significance, it becomes very simple to add dymaic coorid constraints and speed and acceleration constraints, and only the state variable constraints need to be added. Limiting the position variable of the intermediate state to a coorid box for optimization can not only further smooth the trajectory, but also effectively prevent the occurrence of the "slewing" phenomenon.
+
+    \begin{equation}
+        \begin{aligned}
+            p_{n}-coorid_{i}<&p_n<p_{n}+coorid_{i}  \\
+            v_{\min}<&v_n<v_{\max}  \\ 
+            a_{\min}<&a_n<a_{\max}  \\ 
+            n = 1,2,&\cdots,N-1
+        \end{aligned}
+    \end{equation}
+
+    where, $coorid_{i}$ comes from $r_{i}$ in the state variable of the tubeSTRRT planner, that is, the minimum non-collision spherical radius corresponding to each node. 
+
+    For the optimization variable $\boldsymbol{d}$.
+
+    \begin{equation}
+        \boldsymbol{d} = \begin{bmatrix}
+            d_{0}  \\
+            d_{2} \\
+            \vdots \\
+            d_{N}
+            \end{bmatrix}
+            = 
+            \begin{bmatrix}
+            p_{0} \\
+            v_{0} \\
+            a_{0} \\
+            p_{1} \\
+            v_{1} \\
+            a_{1}  \\
+            \vdots \\ 
+            p_{N} \\
+            v_{N} \\
+            a_{N}  \\
+        \end{bmatrix}
+    \end{equation}
+    only has state constraints.
+
+    \begin{equation}
+        \boldsymbol{d}_{Pmin} \leq \boldsymbol{d}_{P}  \leq \boldsymbol{d}_{Pmax}
+    \end{equation}
+
+    Since we have time information for each node, there is no need to use the time allocation algorithm anymore.
+    Compared to the minimum snap problem without variable conversion, this way not only avoids the problem of numerical stability of polynomial coefficient, but also the solution speed has been greatly improved.
+    
     \section{Simulations}
     \label{sec4}
     \section{Conclusion}
